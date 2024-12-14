@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        # image: ${BACKEND_IMAGE}  # 將由 Azure Pipeline 替換
+        image: akslabacr1211.azurecr.io/backend
+        ports:
+        - containerPort: 5000
+        env:
+        - name: FLASK_ENV
+          value: production
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+  - port: 5000
+    targetPort: 5000

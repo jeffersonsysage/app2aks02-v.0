@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple API Test</title>
+</head>
+<body>
+    <h1>API 測試</h1>
+    <button onclick="callApi()">呼叫 API</button>
+    <div id="result"></div>
+
+    <script>
+        async function callApi() {
+            try {
+                // const response = await fetch('http://localhost:5000/api');
+                const response = await fetch('/api');  // 使用相對路徑
+                const data = await response.json();
+                document.getElementById('result').innerHTML = 
+                    `API 回傳: ${JSON.stringify(data)}`;
+            } catch (error) {
+                document.getElementById('result').innerHTML = '呼叫失敗';
+            }
+        }
+    </script>
+</body>
+</html>
