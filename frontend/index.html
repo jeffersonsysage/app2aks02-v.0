@@ -10,15 +10,38 @@
     <div id="result"></div>
 
     <script>
+        // async function callApi() {
+        //     // try {
+        //     //     // const response = await fetch('http://localhost:5000/api');
+        //     //     // const response = await fetch('/api');  // 使用相對路徑
+        //     //     const response = await fetch('http://backend-service:5000/api');
+        //     //     const data = await response.json();
+        //     //     document.getElementById('result').innerHTML = 
+        //     //         `API 回傳: ${JSON.stringify(data)}`;
+        //     // } catch (error) {
+        //     //     document.getElementById('result').innerHTML = '呼叫失敗';
+        //     // }
+
+        //     fetch('http://backend-service:5000/api')
+        //       .then(response => response.json())
+        //       .then(data => {
+        //         document.getElementById('result').innerHTML = `API 回傳: ${JSON.stringify(data)}`;
+        //       })
+        //       .catch(error => {
+        //         console.error('Error fetching data:', error);
+        //         document.getElementById('result').innerText = 'Failed to load data from the backend.';
+        //       });
+        // }
         async function callApi() {
             try {
-                // const response = await fetch('http://localhost:5000/api');
-                const response = await fetch('/api');  // 使用相對路徑
+                // const response = await fetch('/api');
+                // const response = await fetch('http://backend-service:5000/api');
+                const response = await fetch('/api'); // 修改為相對路徑，依靠 Ingress 處理
                 const data = await response.json();
-                document.getElementById('result').innerHTML = 
-                    `API 回傳: ${JSON.stringify(data)}`;
+                document.getElementById('result').innerHTML = `API 回傳: ${JSON.stringify(data)}`;
             } catch (error) {
-                document.getElementById('result').innerHTML = '呼叫失敗';
+                console.error('Error fetching data:', error);
+                document.getElementById('result').innerText = 'Failed to load data from the backend.';
             }
         }
     </script>

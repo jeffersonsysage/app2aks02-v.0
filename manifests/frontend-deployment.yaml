@@ -17,7 +17,7 @@ spec:
       containers:
       - name: frontend
         # image: ${FRONTEND_IMAGE}  # 將由 Azure Pipeline 替換
-        image: akslabacr1211.azurecr.io/frontend 
+        image: "akslabacr1211.azurecr.io/frontend:latest" 
         ports:
         - containerPort: 80
 ---
@@ -26,9 +26,14 @@ kind: Service
 metadata:
   name: frontend-service
 spec:
-  type: LoadBalancer
+  # type: LoadBalancer
+  type: ClusterIP # 由 Ingress 管理，改為 ClusterIP
   selector:
     app: frontend
+  # ports:
+  # - port: 80
+  #   targetPort: 80
   ports:
-  - port: 80
-    targetPort: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 80

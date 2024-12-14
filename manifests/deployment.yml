@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: appaksv 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appaksv
+  template:
+    metadata:
+      labels:
+        app: appaksv 
+    spec:
+      containers:
+        - name: appaksv 
+          image: akslabacr1211.azurecr.io/appaksv
+          ports:
+          - containerPort: 80

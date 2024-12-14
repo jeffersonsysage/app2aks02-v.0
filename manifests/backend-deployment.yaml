@@ -17,7 +17,7 @@ spec:
       containers:
       - name: backend
         # image: ${BACKEND_IMAGE}  # 將由 Azure Pipeline 替換
-        image: akslabacr1211.azurecr.io/backend
+        image: "akslabacr1211.azurecr.io/backend:latest"
         ports:
         - containerPort: 5000
         env:
@@ -32,6 +32,10 @@ spec:
   type: ClusterIP
   selector:
     app: backend
+  # ports:
+  # - port: 5000
+  #   targetPort: 5000
   ports:
-  - port: 5000
-    targetPort: 5000
+    - protocol: TCP
+      port: 5000        # ClusterIP 的暴露端口
+      targetPort: 5000   # Pod 的容器端口
